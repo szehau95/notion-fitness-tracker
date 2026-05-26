@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Notion Tracker</string>
+    <string name="title_activity_main">Notion Tracker</string>
+    <string name="package_name">com.notionfitness.tracker</string>
+    <string name="custom_url_scheme">com.notionfitness.tracker</string>
+</resources>

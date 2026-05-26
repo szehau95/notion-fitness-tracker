@@ -1,0 +1,402 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 20% 4%;
+    --foreground: 0 0% 98%;
+    --card: 240 15% 8%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 10% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 10% 12%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 188 94% 43%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 10% 15%;
+    --input: 240 10% 15%;
+    --ring: 160 84% 39%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    background: #0A0A0F;
+  }
+  html { scroll-behavior: smooth; }
+}
+
+/* ═══════════════════════════════════════
+   DARK THEME CSS VARIABLES (default)
+═══════════════════════════════════════ */
+:root {
+  --app-bg: #0A0A0F;
+  --nav-bg: rgba(10, 10, 15, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --card-bg: rgba(18, 18, 26, 0.8);
+  --card-bg-alt: rgba(24, 24, 27, 0.8);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-shadow: none;
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-border: rgba(255, 255, 255, 0.08);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
+  /* Brand */
+  --accent-primary: #10B981;
+  --accent-rose: #C27B6E;
+  --accent-mauve: #A78BFA;
+  --accent-sage-lm: #8FC49A;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --border-subtle: rgba(255,255,255,0.08);
+}
+
+/* ═══════════════════════════════════════
+   LIGHT THEME — Rose-Terracotta Feminine
+   Palette: #C27B6E rose / #FDF8F5 cream
+═══════════════════════════════════════ */
+html.light {
+  color-scheme: light;
+
+  /* Core palette */
+  --app-bg:            #FDF8F5;
+  --nav-bg:            rgba(253, 248, 245, 0.94);
+  --nav-border:        #F0E4DC;
+  --card-bg:           #FFFFFF;
+  --card-bg-alt:       #FDF5F2;
+  --card-border:       #F0E4DC;
+  --card-shadow:       0 1px 3px rgba(194,123,110,0.06), 0 4px 16px rgba(194,123,110,0.06);
+  --card-shadow-hover: 0 8px 28px rgba(194,123,110,0.14);
+  --input-bg:          #FDF5F2;
+  --input-border:      #E8D4CC;
+  --scrollbar-thumb:   rgba(194,123,110,0.2);
+  --scrollbar-thumb-hover: rgba(194,123,110,0.38);
+
+  /* Brand accents */
+  --accent-primary:    #C27B6E;   /* rose-terracotta */
+  --accent-rose:       #C27B6E;
+  --accent-mauve:      #A06090;   /* warm mauve */
+  --accent-sage-lm:    #5A8A62;   /* sage green (for pills) */
+  --accent-blush:      #E8A89C;   /* soft blush */
+  --accent-lavender:   #9B72CF;
+
+  /* Text */
+  --text-primary:      #2D2420;
+  --text-secondary:    #6B5450;
+  --text-muted:        #A0918E;
+  --border-subtle:     #F0E4DC;
+}
+
+/* ─── Light: body & base ─── */
+html.light body {
+  background: var(--app-bg);
+  color: var(--text-primary);
+  font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Light: typography — Playfair Display for headings ─── */
+html.light h1,
+html.light h2,
+html.light h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+}
+
+/* ─── Light: text overrides ─── */
+html.light .text-white   { color: var(--text-primary) !important; }
+html.light h1.text-white,
+html.light h2.text-white,
+html.light h3.text-white,
+html.light p.text-white,
+html.light span.text-white { color: var(--text-primary) !important; }
+
+html.light .text-zinc-400  { color: #A0918E !important; }
+html.light .text-zinc-500  { color: #B8A5A2 !important; }
+html.light .text-zinc-600  { color: #C8B5B2 !important; }
+html.light .text-stone-400 { color: #A0918E !important; }
+html.light .text-stone-500 { color: #B8A5A2 !important; }
+
+/* Emerald/teal → rose-terracotta in light mode */
+html.light .text-emerald-400 { color: var(--accent-rose) !important; }
+html.light .text-emerald-300 { color: #D4948A !important; }
+html.light .text-emerald-600 { color: var(--accent-rose) !important; }
+html.light .text-emerald-700 { color: #B0695C !important; }
+html.light .text-cyan-400    { color: var(--accent-mauve) !important; }
+html.light .text-green-400   { color: #5A8A62 !important; }
+html.light .text-green-300   { color: #6EA878 !important; }
+
+/* ─── Light: solid emerald/green backgrounds → rose ─── */
+html.light [class~="bg-emerald-500"] { background-color: #C27B6E !important; color: white !important; }
+html.light [class~="bg-emerald-600"] { background-color: #B0695C !important; color: white !important; }
+html.light [class~="bg-emerald-400"] { background-color: #D4948A !important; color: white !important; }
+/* Hover states */
+html.light [class*="hover:bg-emerald-4"]:hover { background-color: #D4948A !important; color: white !important; }
+html.light [class*="hover:bg-emerald-5"]:hover { background-color: #B06060 !important; color: white !important; }
+
+/* ─── Light: gradient stops → rose/mauve ─── */
+html.light [class~="from-emerald-500"] { --tw-gradient-from: #C27B6E var(--tw-gradient-from-position) !important; }
+html.light [class~="from-emerald-400"] { --tw-gradient-from: #D4948A var(--tw-gradient-from-position) !important; }
+html.light [class~="to-cyan-500"]      { --tw-gradient-to: #A06090 var(--tw-gradient-to-position) !important; }
+html.light [class~="to-emerald-400"]   { --tw-gradient-to: #D4948A var(--tw-gradient-to-position) !important; }
+
+/* ─── Light: ring colors → rose ─── */
+html.light [class*="ring-emerald"]       { --tw-ring-color: rgba(194,123,110,0.45) !important; }
+html.light [class*="hover:ring-emerald"]:hover { --tw-ring-color: rgba(194,123,110,0.65) !important; }
+
+/* ─── Light: border colors → rose ─── */
+html.light [class*="border-l-emerald"]  { border-left-color: #C27B6E !important; }
+html.light [class*="border-emerald-5"]  { border-color: rgba(194,123,110,0.30) !important; }
+html.light [class*="border-emerald-4"]  { border-color: rgba(194,123,110,0.40) !important; }
+html.light [class*="hover:border-emerald"]:hover { border-color: rgba(194,123,110,0.50) !important; }
+html.light [class*="focus:border-emerald"]:focus { border-color: #C27B6E !important; }
+
+/* ─── Light: semi-transparent emerald/cyan/green → rose/mauve/sage ─── */
+html.light [class~="bg-green-500\/20"]  { background: rgba(90,138,98,0.12) !important; }
+html.light [class~="bg-cyan-500\/30"]   { background: rgba(160,96,144,0.15) !important; }
+html.light [class~="bg-emerald-500\/30"]{ background: rgba(194,123,110,0.15) !important; }
+html.light [class~="bg-emerald-500\/25"]{ background: rgba(194,123,110,0.12) !important; }
+
+/* ─── Light: dot/bullet accents ─── */
+html.light [class~="bg-emerald-500"].rounded-full { background-color: #C27B6E !important; }
+
+/* ─── Light: hover text → rose ─── */
+html.light [class*="hover:text-emerald"]:hover { color: #C27B6E !important; }
+html.light [class*="hover:text-cyan"]:hover    { color: #A06090 !important; }
+
+/* ─── Light: cyan border/bg → mauve ─── */
+html.light [class*="border-l-cyan"]  { border-left-color: #A06090 !important; }
+html.light [class~="border-l-cyan-500"] { border-left-color: #A06090 !important; }
+html.light [class~="stroke-cyan-400"],
+html.light [class*="stroke-\[#06B6D4\]"] { stroke: #A06090 !important; }
+
+/* ─── Light: disabled text muted ─── */
+html.light [class~="disabled:text-zinc-500"]:disabled { color: #C2B0AE !important; }
+
+/* ─── Light: box-shadow glow overrides (broad catch) ─── */
+html.light [class*="shadow-[0_0_"][class*="185,129"] {
+  box-shadow: 0 4px 20px rgba(194,123,110,0.25) !important;
+}
+
+/* ─── Light: border & bg overrides ─── */
+html.light .border-white\/\[0\.08\]  { border-color: #F0E4DC !important; }
+html.light .border-white\/\[0\.15\]  { border-color: #E8D4CC !important; }
+html.light .border-white\/20         { border-color: #E8D4CC !important; }
+html.light .border-white\/10         { border-color: #F0E4DC !important; }
+
+html.light .bg-white\/5   { background: rgba(194,123,110,0.04) !important; }
+html.light .bg-white\/10  { background: rgba(194,123,110,0.06) !important; }
+html.light .bg-white\/20  { background: rgba(194,123,110,0.09) !important; }
+html.light .bg-black\/40  { background: rgba(255,255,255,0.65) !important; }
+
+/* Cards with explicit dark bg → white in light */
+html.light [style*="rgba(18, 18, 26"],
+html.light [style*="rgba(24, 24, 27"],
+html.light [style*="rgba(10, 10, 15"] {
+  background: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+/* ─── Light: inputs ─── */
+html.light input,
+html.light select,
+html.light textarea {
+  background: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--text-primary) !important;
+}
+html.light input::placeholder { color: var(--text-muted) !important; }
+
+/* ─── Light: nav ─── */
+html.light nav {
+  background: var(--nav-bg) !important;
+  border-color: var(--nav-border) !important;
+  box-shadow: 0 1px 12px rgba(194,123,110,0.08) !important;
+}
+
+/* Active nav item — rose pill */
+html.light .lm-nav-active {
+  background: #F5EAE6 !important;
+  color: #C27B6E !important;
+}
+
+/* ─── Light: mobile bottom nav text ─── */
+html.light .text-stone-800 { color: var(--text-primary) !important; }
+
+/* ─── Light: stat icon tinted backgrounds ─── */
+html.light .lm-icon-rose    { background: #FAE8E6 !important; }
+html.light .lm-icon-mauve   { background: #F0E8F5 !important; }
+html.light .lm-icon-sage    { background: #E8F2EA !important; }
+html.light .lm-icon-blush   { background: #FDF0E8 !important; }
+
+/* ─── Light: stat bottom bar accents ─── */
+html.light .lm-bar-rose   { background: linear-gradient(90deg, #E8A89C, transparent) !important; }
+html.light .lm-bar-mauve  { background: linear-gradient(90deg, #C8A8E0, transparent) !important; }
+html.light .lm-bar-sage   { background: linear-gradient(90deg, #8FC49A, transparent) !important; }
+html.light .lm-bar-blush  { background: linear-gradient(90deg, #F0C0A0, transparent) !important; }
+
+/* ─── Light: program category pills ─── */
+html.light .lm-pill-upper   { background: #FAE8E6; color: #B06055; }
+html.light .lm-pill-lower   { background: #E8F2EA; color: #5A8A62; }
+html.light .lm-pill-full    { background: #F0E8F5; color: #8A5EA0; }
+html.light .lm-pill-trap    { background: #FDF0E8; color: #B07040; }
+html.light .lm-pill-glute   { background: #FAE8F0; color: #B06080; }
+html.light .lm-pill-push    { background: #E8EEF8; color: #5060A0; }
+html.light .lm-pill-hyrox   { background: #E8F2EA; color: #3A7048; }
+
+/* ─── Light: premium card ─── */
+html.light .lm-card {
+  background: #FFFFFF;
+  border: 0.5px solid #F0E4DC;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+html.light .lm-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* ─── Light: emerald accent badges → rose ─── */
+html.light .bg-emerald-500\/20 { background: rgba(194,123,110,0.12) !important; }
+html.light .bg-emerald-500\/10 { background: rgba(194,123,110,0.08) !important; }
+html.light .bg-cyan-500\/20    { background: rgba(160,96,144,0.12) !important; }
+html.light .bg-cyan-500\/10    { background: rgba(160,96,144,0.08) !important; }
+
+/* ─── Light: motivation banner ─── */
+html.light .lm-motivation {
+  background: linear-gradient(135deg, #C27B6E, #A06090) !important;
+  border-radius: 20px;
+}
+
+/* ─── Light: streaks ─── */
+html.light .streak-flame { color: #D46040 !important; filter: drop-shadow(0 0 6px rgba(212,96,64,0.35)); }
+
+/* ─── Light: YouTube / link btn ─── */
+html.light .yt-btn {
+  background: #FEE8E8 !important;
+  border-color: rgba(220,60,60,0.2) !important;
+  color: #C03030 !important;
+}
+
+/* ─── Light: scrollbar ─── */
+html.light ::-webkit-scrollbar-thumb { background: rgba(194,123,110,0.2); }
+html.light ::-webkit-scrollbar-thumb:hover { background: rgba(194,123,110,0.38); }
+
+/* ─── Light: section heading serif ─── */
+html.light .lm-section-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+/* ─── Light: gradient hero decorative text ─── */
+html.light .lm-hero-tag {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-rose);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(194,123,110,0.3); }
+  50%       { box-shadow: 0 0 25px rgba(194,123,110,0.5); }
+}
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #C27B6E 25%, #A06090 50%, #C27B6E 75%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+.animate-gentle-pulse { animation: gentle-pulse 2.4s ease-in-out infinite; }
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slide-up-fade 0.4s ease-out forwards; }
+
+/* ═══════════════════════════════════════
+   SHARED UTILITIES
+═══════════════════════════════════════ */
+/* Custom scrollbar */
+@layer utilities {
+  ::-webkit-scrollbar          { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track    { background: transparent; }
+  ::-webkit-scrollbar-thumb    { background: var(--scrollbar-thumb); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+}
+
+/* Remove number spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+/* Glass card (dark default) */
+.glass-card {
+  background: rgba(18, 18, 26, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+}
+html.light .glass-card {
+  background: #FFFFFF !important;
+  backdrop-filter: none !important;
+  border: 0.5px solid #F0E4DC !important;
+  box-shadow: var(--card-shadow) !important;
+}
+
+/* Theme-aware card */
+.theme-card {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+/* Glow effects */
+.glow-emerald        { box-shadow: 0 0 20px rgba(16,185,129,0.3); }
+.glow-emerald-strong { box-shadow: 0 0 30px rgba(16,185,129,0.5); }
+html.light .glow-emerald        { box-shadow: 0 0 20px rgba(194,123,110,0.22) !important; }
+html.light .glow-emerald-strong { box-shadow: 0 0 30px rgba(194,123,110,0.38) !important; }
+
+/* Responsive tap targets */
+@layer base {
+  button, a, input, select { min-height: 44px; min-width: 44px; }
+}
