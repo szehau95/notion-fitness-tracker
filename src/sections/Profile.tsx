@@ -3,6 +3,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Save, LogOut, X, Pencil, Ruler, Weight, Calendar, Heart, Mail, Phone, Camera, Target, Flame } from 'lucide-react';
 import { Camera as CapCamera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Capacitor } from '@capacitor/core';
 import type { UserProfile, WorkoutSession } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -117,7 +118,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
     setEditMode(false);
   };
 
-  const isNative = 'Capacitor' in window;
+  const isNative = Capacitor.isNativePlatform();
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6 pb-24 pt-20">
