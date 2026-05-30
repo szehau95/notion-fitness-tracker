@@ -38,7 +38,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
 
   const bmiCategory = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal' : bmi < 30 ? 'Overweight' : 'Obese';
   const bmiColor = bmi < 18.5 ? 'text-yellow-400' : bmi < 25 ? 'text-emerald-400' : bmi < 30 ? 'text-orange-400' : 'text-red-400';
-  const bmiStroke = bmi < 25 ? (isLight ? '#C27B6E' : '#10B981') : bmi < 30 ? '#F59E0B' : '#EF4444';
+  const bmiStroke = bmi < 25 ? (isLight ? '#10B981' : '#10B981') : bmi < 30 ? '#F59E0B' : '#EF4444';
 
   // Weekly goal — count actual workouts from this week
   const weeklyTarget = profile.weeklyGoal || 3;
@@ -79,27 +79,8 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
     if (!file.type.startsWith('image/')) { setUploadError('Please select an image file.'); return; }
     setIsUploading(true);
     try {
-      // 1. Resize to max 400px JPEG to reduce payload size
+      // Resize to max 400px JPEG and store as base64 in the DB (MEDIUMTEXT handles ~60KB fine)
       const dataUrl = await resizeToDataUrl(file);
-
-      // 2. Try uploading via the dedicated file endpoint (server stores file, returns URL)
-      try {
-        const blob = await (await fetch(dataUrl)).blob();
-        const fd = new FormData();
-        fd.append('file', new File([blob], 'avatar.jpg', { type: 'image/jpeg' }));
-        const resp = await fetch('/api/upload', { method: 'POST', body: fd });
-        if (resp.ok) {
-          const json = await resp.json() as { success?: boolean; url?: string; error?: string };
-          if (json.success && json.url) {
-            setForm((p) => ({ ...p, avatar: json.url }));
-            setIsUploading(false);
-            e.target.value = '';
-            return;
-          }
-        }
-      } catch (_uploadErr) { /* fall through to base64 */ }
-
-      // 3. Fallback: store as base64 data URL in DB (works on dev, may be large on prod)
       setForm((p) => ({ ...p, avatar: dataUrl }));
     } catch { setUploadError('Failed to process image. Try another file.'); }
     setIsUploading(false);
@@ -145,7 +126,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
         {!editMode && (
           <Button onClick={() => { setEditMode(true); setForm({ ...profile, email, phone: phone ?? '' }); setUploadError(''); }}
             className="rounded-full px-4 text-white text-sm" size="sm"
-            style={{ background: 'linear-gradient(135deg, #C27B6E, #A06090)', boxShadow: '0 4px 14px rgba(194,123,110,0.35)' }}>
+            style={{ background: 'linear-gradient(135deg, #10B981, #059669)', boxShadow: '0 4px 14px rgba(16,185,129,0.35)' }}>
             <Pencil className="mr-1.5 h-3.5 w-3.5" /> Edit Info
           </Button>
         )}
@@ -155,9 +136,9 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
         {editMode ? (
           <motion.div key="edit" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
             className="rounded-xl p-4"
-            style={{ background: 'var(--card-bg)', border: '1px solid rgba(194,123,110,0.25)', boxShadow: '0 0 20px rgba(194,123,110,0.08)', backdropFilter: 'blur(12px)' }}>
+            style={{ background: 'var(--card-bg)', border: '1px solid rgba(16,185,129,0.25)', boxShadow: '0 0 20px rgba(16,185,129,0.08)', backdropFilter: 'blur(12px)' }}>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-sm font-semibold" style={{ color: '#C27B6E' }}>Edit Your Information</h3>
+              <h3 className="text-sm font-semibold" style={{ color: '#10B981' }}>Edit Your Information</h3>
               <button onClick={() => { setEditMode(false); setForm({ ...profile, email, phone: phone ?? '' }); setUploadError(''); }}
                 className="rounded-lg p-1 text-zinc-500 hover:text-white"><X className="h-4 w-4" /></button>
             </div>
@@ -167,14 +148,14 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
                   <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
                   <button onClick={isNative ? pickPhotoMobile : () => fileInputRef.current?.click()} disabled={isUploading}
                     className="group relative flex h-24 w-24 items-center justify-center overflow-hidden rounded-full transition-all disabled:opacity-60"
-                    style={{ boxShadow: '0 0 0 3px rgba(194,123,110,0.4)' }}>
+                    style={{ boxShadow: '0 0 0 3px rgba(16,185,129,0.4)' }}>
                     {form.avatar ? <img src={form.avatar} alt="avatar" className="h-full w-full object-cover" /> : (
-                      <div className="flex h-full w-full items-center justify-center" style={{ background: 'linear-gradient(135deg, #C27B6E, #A06090)' }}><User className="h-12 w-12 text-white" /></div>
+                      <div className="flex h-full w-full items-center justify-center" style={{ background: 'linear-gradient(135deg, #10B981, #059669)' }}><User className="h-12 w-12 text-white" /></div>
                     )}
                     <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 opacity-0 transition-opacity group-hover:opacity-100"><Camera className="h-7 w-7 text-white" /></div>
                   </button>
                   <button onClick={isNative ? pickPhotoMobile : () => fileInputRef.current?.click()} disabled={isUploading}
-                    className="text-xs font-medium disabled:opacity-40" style={{ color: '#C27B6E' }}>
+                    className="text-xs font-medium disabled:opacity-40" style={{ color: '#10B981' }}>
                     {isUploading ? 'Uploading...' : form.avatar ? 'Change Photo' : 'Upload Photo'}
                   </button>
                   {uploadError && <p className="text-xs text-red-400">{uploadError}</p>}
@@ -212,7 +193,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
                 {form.weightKg > 0 && form.heightCm > 0 && (
                   <div className="rounded-lg bg-white/5 p-2 text-center">
                     <p className="text-[10px] text-zinc-500">Preview BMI</p>
-                    <p className="text-base font-bold" style={{ color: '#C27B6E' }}>{Math.round((form.weightKg / ((form.heightCm / 100) ** 2)) * 10) / 10}</p>
+                    <p className="text-base font-bold" style={{ color: '#10B981' }}>{Math.round((form.weightKg / ((form.heightCm / 100) ** 2)) * 10) / 10}</p>
                   </div>
                 )}
               </div>
@@ -221,7 +202,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
             <div className="mt-3 flex gap-2 pt-2">
               <button onClick={handleSave} disabled={isSaving}
                 className="flex flex-1 items-center justify-center gap-1.5 rounded-full py-3 text-sm font-semibold text-white disabled:opacity-60 transition-all hover:-translate-y-0.5"
-                style={{ background: 'linear-gradient(135deg, #C27B6E, #A06090)', boxShadow: '0 4px 16px rgba(194,123,110,0.35)' }}>
+                style={{ background: 'linear-gradient(135deg, #10B981, #059669)', boxShadow: '0 4px 16px rgba(16,185,129,0.35)' }}>
                 <Save className="h-3.5 w-3.5" />{isSaving ? 'Saving…' : 'Save'}
               </button>
               <button onClick={() => { setEditMode(false); setForm({ ...profile, email, phone: phone ?? '' }); setUploadError(''); setSaveError(''); }}
@@ -232,17 +213,17 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
         ) : (
           <motion.div key="view" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-6">
             {/* Profile Card */}
-            <div className="rounded-xl border-l-4 p-5" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderLeftWidth: '4px', borderLeftColor: '#C27B6E', boxShadow: 'var(--card-shadow)', backdropFilter: 'blur(12px)' }}>
+            <div className="rounded-xl border-l-4 p-5" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderLeftWidth: '4px', borderLeftColor: '#10B981', boxShadow: 'var(--card-shadow)', backdropFilter: 'blur(12px)' }}>
               <div className="flex items-center gap-4">
                 {profile.avatar
-                  ? <img src={profile.avatar} alt="avatar" className="h-16 w-16 shrink-0 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(194,123,110,0.35)' }} />
-                  : <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full" style={{ background: 'linear-gradient(135deg, #C27B6E, #A06090)' }}><User className="h-8 w-8 text-white" /></div>
+                  ? <img src={profile.avatar} alt="avatar" className="h-16 w-16 shrink-0 rounded-full object-cover" style={{ boxShadow: '0 0 0 2px rgba(16,185,129,0.35)' }} />
+                  : <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full" style={{ background: 'linear-gradient(135deg, #10B981, #059669)' }}><User className="h-8 w-8 text-white" /></div>
                 }
                 <div className="flex-1 min-w-0">
                   <h2 className="text-xl font-bold text-white">{profile.displayName}</h2>
                   <p className="text-sm text-zinc-400 truncate">{email}</p>
                   {phone && <p className="text-sm text-zinc-500">{phone}</p>}
-                  <p className="mt-1 text-xs" style={{ color: '#C27B6E' }}>Level {profile.level} &bull; {profile.xp} XP</p>
+                  <p className="mt-1 text-xs" style={{ color: '#10B981' }}>Level {profile.level} &bull; {profile.xp} XP</p>
                 </div>
                 <button onClick={() => { setEditMode(true); setForm({ ...profile, email, phone: phone ?? '' }); setUploadError(''); setSaveError(''); }}
                   className="rounded-lg p-2 text-zinc-600 transition-colors hover:bg-white/5" style={{ color: 'var(--text-muted)' }}>
@@ -275,7 +256,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
             )}
 
             {/* ─── Weekly Goal Section ─── */}
-            <div className="rounded-xl p-5" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderLeftWidth: '4px', borderLeftColor: '#A06090', boxShadow: 'var(--card-shadow)', backdropFilter: 'blur(12px)' }}>
+            <div className="rounded-xl p-5" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', borderLeftWidth: '4px', borderLeftColor: '#059669', boxShadow: 'var(--card-shadow)', backdropFilter: 'blur(12px)' }}>
               <div className="flex items-center gap-2 mb-4">
                 <Target className="h-5 w-5 text-cyan-400" />
                 <h3 className="font-semibold text-white">Weekly Goal</h3>
@@ -285,7 +266,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
                 <div className="relative h-24 w-24 shrink-0">
                   <svg viewBox="0 0 64 64" className="h-full w-full -rotate-90">
                     <circle cx="32" cy="32" r="30" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4" />
-                    <circle cx="32" cy="32" r="30" fill="none" stroke="#A06090" strokeWidth="4" strokeLinecap="round"
+                    <circle cx="32" cy="32" r="30" fill="none" stroke="#059669" strokeWidth="4" strokeLinecap="round"
                       strokeDasharray={weekRingCircumference}
                       strokeDashoffset={weekRingCircumference - weekProgress * weekRingCircumference}
                       className="transition-all duration-700" />
@@ -307,7 +288,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
                             ? 'bg-white/10 ring-1'
                             : 'bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white'
                         }`}
-                        style={weeklyTarget === n ? { color: '#A06090', background: 'rgba(160,96,144,0.12)', '--tw-ring-color': 'rgba(160,96,144,0.35)' } as React.CSSProperties : {}}
+                        style={weeklyTarget === n ? { color: '#059669', background: 'rgba(5,150,105,0.12)', '--tw-ring-color': 'rgba(5,150,105,0.35)' } as React.CSSProperties : {}}
                       >
                         {n}
                       </button>
@@ -315,7 +296,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
                   </div>
                   <p className="mt-2 text-xs text-zinc-500">
                     {thisWeekWorkouts >= weeklyTarget
-                      ? <span className="flex items-center gap-1" style={{ color: '#C27B6E' }}><Flame className="h-3 w-3" /> Weekly goal hit!</span>
+                      ? <span className="flex items-center gap-1" style={{ color: '#10B981' }}><Flame className="h-3 w-3" /> Weekly goal hit!</span>
                       : `${weeklyTarget - thisWeekWorkouts} more to hit your goal`}
                   </p>
                 </div>
@@ -327,7 +308,7 @@ export function Profile({ profile, email, phone, sessions, onUpdateProfile, onUp
               <h3 className="mb-3 font-semibold text-white">Workout Summary</h3>
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-lg bg-white/5 p-3 text-center"><p className="text-xl font-bold text-emerald-400">{profile.totalWorkouts}</p><p className="text-xs text-zinc-500">Total Workouts</p></div>
-                <div className="rounded-lg bg-white/5 p-3 text-center"><p className="text-xl font-bold" style={{ color: '#A06090' }}>{profile.streakDays}</p><p className="text-xs text-zinc-500">Current Streak</p></div>
+                <div className="rounded-lg bg-white/5 p-3 text-center"><p className="text-xl font-bold" style={{ color: '#059669' }}>{profile.streakDays}</p><p className="text-xs text-zinc-500">Current Streak</p></div>
                 <div className="rounded-lg bg-white/5 p-3 text-center"><p className="text-xl font-bold text-white">{profile.longestStreak}</p><p className="text-xs text-zinc-500">Best Streak</p></div>
                 <div className="rounded-lg bg-white/5 p-3 text-center"><p className="text-xl font-bold text-white">{(profile.totalVolume / 1000).toFixed(1)}k</p><p className="text-xs text-zinc-500">Total Volume</p></div>
               </div>

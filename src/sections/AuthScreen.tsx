@@ -126,7 +126,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
 
   const iconColor = isLight ? '#C2968E' : 'rgba(255,255,255,0.3)';
 
-  const inputFocusBorder = isLight ? '#C27B6E' : 'rgba(194,123,110,0.6)';
+  const inputFocusBorder = isLight ? '#C27B6E' : 'rgba(16,185,129,0.6)';
   const inputBlurBorder  = isLight ? '#E8D4CC' : 'rgba(255,255,255,0.1)';
 
   return (
@@ -143,7 +143,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
         <div
           className="absolute top-1/4 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full"
           style={{
-            background: 'radial-gradient(circle, #C27B6E, transparent 70%)',
+            background: isLight ? 'radial-gradient(circle, #C27B6E, transparent 70%)' : 'radial-gradient(circle, #10B981, transparent 70%)',
             opacity: isLight ? 0.10 : 0.07,
           }}
         />
@@ -182,7 +182,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
             className="flex h-14 w-14 items-center justify-center rounded-2xl mb-1"
             style={isLight
               ? { background: 'linear-gradient(135deg, #F5EAE6, #FAE0D8)', border: '1px solid #E8C4BC', boxShadow: '0 4px 16px rgba(194,123,110,0.15)' }
-              : { background: 'linear-gradient(135deg, rgba(232,168,156,0.2), rgba(194,123,110,0.15))', border: '1px solid rgba(194,123,110,0.25)' }
+              : { background: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1))', border: '1px solid rgba(16,185,129,0.25)' }
             }
           >
             <span style={{ fontSize: '26px', lineHeight: 1 }}>✦</span>
@@ -191,7 +191,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
             className="mt-3 text-2xl tracking-tight"
             style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, color: isLight ? '#2D2420' : '#fff' }}
           >
-            Notion <span style={{ color: '#C27B6E' }}>Tracker</span>
+            Notion <span style={{ color: isLight ? '#C27B6E' : '#10B981' }}>Tracker</span>
           </h1>
           <p className="mt-1 text-xs" style={{ color: isLight ? '#A0918E' : 'rgba(255,255,255,0.35)' }}>
             Your fitness command center
@@ -214,7 +214,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
               style={mode === m
                 ? isLight
                   ? { background: '#FFFFFF', color: '#C27B6E', border: '1px solid #E8C4BC', boxShadow: '0 2px 8px rgba(194,123,110,0.12)' }
-                  : { background: 'rgba(194,123,110,0.18)', color: '#E8A89C', border: '1px solid rgba(194,123,110,0.25)' }
+                  : { background: 'rgba(16,185,129,0.15)', color: '#34D399', border: '1px solid rgba(16,185,129,0.25)' }
                 : isLight
                   ? { color: '#A0918E', border: '1px solid transparent' }
                   : { color: 'rgba(255,255,255,0.35)', border: '1px solid transparent' }
@@ -266,7 +266,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
                       />
                     </div>
                     {detectedPhone && (
-                      <p className="mt-1 text-xs" style={{ color: '#C27B6E' }}>Phone number detected — no password needed</p>
+                      <p className="mt-1 text-xs" style={{ color: isLight ? '#C27B6E' : '#10B981' }}>Phone number detected — no password needed</p>
                     )}
                   </div>
 
@@ -443,7 +443,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
                       type="button"
                       onClick={() => switchMode('register')}
                       className="mt-2 text-xs font-medium hover:underline underline-offset-2"
-                      style={{ color: '#C27B6E', background: 'none', border: 'none', cursor: 'pointer', minHeight: 0, minWidth: 0, padding: 0 }}
+                      style={{ color: isLight ? '#C27B6E' : '#10B981', background: 'none', border: 'none', cursor: 'pointer', minHeight: 0, minWidth: 0, padding: 0 }}
                     >
                       → Create a new account with this email
                     </button>
@@ -457,8 +457,8 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
                 disabled={loading}
                 className="w-full rounded-xl py-3.5 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 disabled:opacity-60"
                 style={{
-                  background: loading ? 'rgba(194,123,110,0.5)' : 'linear-gradient(135deg, #C27B6E, #A06090)',
-                  boxShadow: '0 4px 20px rgba(194,123,110,0.35)',
+                  background: loading ? 'rgba(16,185,129,0.5)' : isLight ? 'linear-gradient(135deg, #C27B6E, #A06090)' : 'linear-gradient(135deg, #10B981, #059669)',
+                  boxShadow: isLight ? '0 4px 20px rgba(194,123,110,0.35)' : '0 4px 20px rgba(16,185,129,0.35)',
                   fontFamily: "'DM Sans', system-ui, sans-serif",
                 }}
               >
@@ -478,7 +478,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
               New here?{' '}
               <button
                 onClick={() => switchMode('register')}
-                style={{ color: '#C27B6E', background: 'none', border: 'none', cursor: 'pointer', minHeight: 0, minWidth: 0, padding: 0 }}
+                style={{ color: isLight ? '#C27B6E' : '#10B981', background: 'none', border: 'none', cursor: 'pointer', minHeight: 0, minWidth: 0, padding: 0 }}
                 className="font-medium"
               >
                 Create an account
@@ -489,7 +489,7 @@ export function AuthScreen({ onLogin, onRegister, onPhoneLogin, theme = 'dark', 
               Already have one?{' '}
               <button
                 onClick={() => switchMode('login')}
-                style={{ color: '#C27B6E', background: 'none', border: 'none', cursor: 'pointer', minHeight: 0, minWidth: 0, padding: 0 }}
+                style={{ color: isLight ? '#C27B6E' : '#10B981', background: 'none', border: 'none', cursor: 'pointer', minHeight: 0, minWidth: 0, padding: 0 }}
                 className="font-medium"
               >
                 Sign in

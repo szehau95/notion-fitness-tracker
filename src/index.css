@@ -54,7 +54,7 @@
   --scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
   /* Brand */
   --accent-primary: #10B981;
-  --accent-rose: #C27B6E;
+  --accent-rose: #10B981;
   --accent-mauve: #A78BFA;
   --accent-sage-lm: #8FC49A;
   --text-primary: #ffffff;
@@ -316,8 +316,8 @@ html.light .lm-hero-tag {
    ANIMATIONS
 ═══════════════════════════════════════ */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 15px rgba(194,123,110,0.3); }
-  50%       { box-shadow: 0 0 25px rgba(194,123,110,0.5); }
+  0%, 100% { box-shadow: 0 0 15px rgba(16,185,129,0.3); }
+  50%       { box-shadow: 0 0 25px rgba(16,185,129,0.5); }
 }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
@@ -332,7 +332,7 @@ html.light .lm-hero-tag {
   100% { background-position:  200% center; }
 }
 .shimmer-text {
-  background: linear-gradient(90deg, #C27B6E 25%, #A06090 50%, #C27B6E 75%);
+  background: linear-gradient(90deg, #10B981 25%, #059669 50%, #10B981 75%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
